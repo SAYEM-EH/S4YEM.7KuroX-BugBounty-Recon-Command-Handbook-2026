@@ -277,78 +277,11 @@ grep -oE '\[[0-9]{3}\]' web/live-metadata.txt | sort | uniq -c | sort -nr
 grep -RniE 'idor|oauth|session|authorization|business logic' notes/
 ```
 
-## 16. Manual testing priorities
-
-### Access control / IDOR
-- Create two test accounts you control.
-- Create a record in account A and attempt to access that same test record as account B.
-- Test read/update/delete/export paths separately.
-- Confirm the server enforces ownership; never test against unrelated users' private records.
-
-### Authentication / session
-- Verify logout invalidates the relevant session.
-- Check password-change and password-reset session behavior.
-- Compare OAuth account linking with controlled accounts.
-- Check token expiry and role changes using your own test sessions.
-
-### Business logic
-- Test workflow order, duplicate submissions, limits, quantity/price validation, and cancellation rules with harmless test data.
-- Verify server-side validation, not just browser-side controls.
-
-### API
-- Record method, path, role, request body, response code, and expected permission.
-- Test object ownership and role boundaries with accounts you control.
-- Check whether extra fields are accepted and whether sensitive fields are returned unnecessarily.
-
----
-
-## 17. Report skeleton
-
-```markdown
-## Title
-[Specific issue + affected feature]
-
-## Summary
-[What is wrong and why it matters.]
-
-## Affected asset
-[In-scope host, endpoint, method]
-
-## Preconditions
-[Required test role/account]
-
-## Steps to reproduce
-1. [Action using controlled test account A]
-2. [Capture request / create controlled test object]
-3. [Repeat with controlled test account B]
-4. [Record actual behavior]
-
-## Expected result
-[Secure expected behavior]
-
-## Actual result
-[Observed behavior]
-
-## Impact
-[Only impact demonstrated by evidence; no exaggeration]
-
-## Evidence
-[Redacted request/response, screenshot, or short video]
-
-## Remediation
-[Server-side validation / authorization fix]
-```
-
----
-
 ## References
 
 - OWASP Web Security Testing Guide: https://owasp.org/www-project-web-security-testing-guide/
 - OWASP API Security: https://owasp.org/www-project-api-security/
 - PortSwigger Web Security Academy: https://portswigger.net/web-security
-- ProjectDiscovery docs: https://docs.projectdiscovery.io/
-- ffuf: https://github.com/ffuf/ffuf
-- Nmap reference: https://nmap.org/book/man.html
 
 ## Changelog
 
